@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using SocialbookAPI.Application.Repositories;
 using SocialbookAPI.Domain.Entities.Identity;
 using SocialbookAPI.Persistence.Contexts;
+using SocialbookAPI.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,13 @@ namespace SocialbookAPI.Persistence
                 options.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<SocialbookDbContext>()
             .AddDefaultTokenProviders();
+
+            services.AddScoped<ISongReadRepository, SongReadRepository>();
+            services.AddScoped<ISongWriteRepository, SongWriteRepository>();
+            services.AddScoped<IFileReadRepository, FileReadRepository>();
+            services.AddScoped<IFileWriteRepository, FileWriteRepository>();
+
+
 
         }
     }
