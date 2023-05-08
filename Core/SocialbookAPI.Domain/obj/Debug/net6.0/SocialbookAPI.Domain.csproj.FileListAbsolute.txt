@@ -1,0 +1,12 @@
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\bin\Debug\net6.0\SocialbookAPI.Domain.deps.json
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\bin\Debug\net6.0\SocialbookAPI.Domain.dll
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\bin\Debug\net6.0\SocialbookAPI.Domain.pdb
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\obj\Debug\net6.0\SocialbookAPI.Domain.csproj.AssemblyReference.cache
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\obj\Debug\net6.0\SocialbookAPI.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\obj\Debug\net6.0\SocialbookAPI.Domain.AssemblyInfoInputs.cache
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\obj\Debug\net6.0\SocialbookAPI.Domain.AssemblyInfo.cs
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\obj\Debug\net6.0\SocialbookAPI.Domain.csproj.CoreCompileInputs.cache
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\obj\Debug\net6.0\SocialbookAPI.Domain.dll
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\obj\Debug\net6.0\refint\SocialbookAPI.Domain.dll
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\obj\Debug\net6.0\SocialbookAPI.Domain.pdb
+D:\Socialbook\SocialbookAPI\Core\SocialbookAPI.Domain\obj\Debug\net6.0\ref\SocialbookAPI.Domain.dll

@@ -1,0 +1,17 @@
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\bin\Debug\net6.0\SocialbookAPI.Infrastructure.deps.json
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\bin\Debug\net6.0\SocialbookAPI.Infrastructure.dll
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\bin\Debug\net6.0\SocialbookAPI.Infrastructure.pdb
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\bin\Debug\net6.0\SocialbookAPI.Application.dll
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\bin\Debug\net6.0\SocialbookAPI.Domain.dll
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\bin\Debug\net6.0\SocialbookAPI.Application.pdb
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\bin\Debug\net6.0\SocialbookAPI.Domain.pdb
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\obj\Debug\net6.0\SocialbookAPI.Infrastructure.csproj.AssemblyReference.cache
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\obj\Debug\net6.0\SocialbookAPI.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\obj\Debug\net6.0\SocialbookAPI.Infrastructure.AssemblyInfoInputs.cache
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\obj\Debug\net6.0\SocialbookAPI.Infrastructure.AssemblyInfo.cs
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\obj\Debug\net6.0\SocialbookAPI.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\obj\Debug\net6.0\SocialbookAPI.Infrastructure.csproj.CopyComplete
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\obj\Debug\net6.0\SocialbookAPI.Infrastructure.dll
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\obj\Debug\net6.0\refint\SocialbookAPI.Infrastructure.dll
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\obj\Debug\net6.0\SocialbookAPI.Infrastructure.pdb
+D:\Socialbook\SocialbookAPI\Infrastructure\Socialbook.Infrastructure\obj\Debug\net6.0\ref\SocialbookAPI.Infrastructure.dll
