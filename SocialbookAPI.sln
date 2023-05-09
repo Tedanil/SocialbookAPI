@@ -9,15 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialbookAPI.Domain", "Cor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{437BD35E-4A28-416E-814F-BDD5ED0ABF39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialbookAPI.Infrastructure", "Infrastructure\Socialbook.Infrastructure\SocialbookAPI.Infrastructure.csproj", "{648D3AC3-C251-4C69-93AC-F87B002DA96E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialbookAPI.Persistence", "Infrastructure\SocialbookAPI.Persistence\SocialbookAPI.Persistence.csproj", "{901FFDC3-B18F-45C2-A2DF-79E6A0613F59}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{FEEAF9D0-AAC7-412F-B9BD-16C0081504C2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialbookAPI.API", "Presentation\SocialbookAPI.API\SocialbookAPI.API.csproj", "{D61F6335-04E2-486A-B0BF-6BD09F718C8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialbookAPI.Application", "Core\SocialbookAPI.Application\SocialbookAPI.Application.csproj", "{658B97EF-B6F0-421C-917D-B8087FBEB691}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialbookAPI.Application", "Core\SocialbookAPI.Application\SocialbookAPI.Application.csproj", "{658B97EF-B6F0-421C-917D-B8087FBEB691}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialbookAPI.Infrastructure", "Infrastructure\SocialbookAPI.Infrastructure\SocialbookAPI.Infrastructure.csproj", "{1A3FB3EF-ACDD-4685-981F-91852765B5F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,6 @@ Global
 		{DB5A4376-230C-4024-8CF4-B22CEACED570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB5A4376-230C-4024-8CF4-B22CEACED570}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB5A4376-230C-4024-8CF4-B22CEACED570}.Release|Any CPU.Build.0 = Release|Any CPU
-		{648D3AC3-C251-4C69-93AC-F87B002DA96E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{648D3AC3-C251-4C69-93AC-F87B002DA96E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{648D3AC3-C251-4C69-93AC-F87B002DA96E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{648D3AC3-C251-4C69-93AC-F87B002DA96E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{901FFDC3-B18F-45C2-A2DF-79E6A0613F59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{901FFDC3-B18F-45C2-A2DF-79E6A0613F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{901FFDC3-B18F-45C2-A2DF-79E6A0613F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,16 +41,20 @@ Global
 		{658B97EF-B6F0-421C-917D-B8087FBEB691}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{658B97EF-B6F0-421C-917D-B8087FBEB691}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{658B97EF-B6F0-421C-917D-B8087FBEB691}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A3FB3EF-ACDD-4685-981F-91852765B5F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A3FB3EF-ACDD-4685-981F-91852765B5F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A3FB3EF-ACDD-4685-981F-91852765B5F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A3FB3EF-ACDD-4685-981F-91852765B5F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DB5A4376-230C-4024-8CF4-B22CEACED570} = {204CE80F-5137-4897-8F4A-9BCBF4B511C0}
-		{648D3AC3-C251-4C69-93AC-F87B002DA96E} = {437BD35E-4A28-416E-814F-BDD5ED0ABF39}
 		{901FFDC3-B18F-45C2-A2DF-79E6A0613F59} = {437BD35E-4A28-416E-814F-BDD5ED0ABF39}
 		{D61F6335-04E2-486A-B0BF-6BD09F718C8E} = {FEEAF9D0-AAC7-412F-B9BD-16C0081504C2}
 		{658B97EF-B6F0-421C-917D-B8087FBEB691} = {204CE80F-5137-4897-8F4A-9BCBF4B511C0}
+		{1A3FB3EF-ACDD-4685-981F-91852765B5F8} = {437BD35E-4A28-416E-814F-BDD5ED0ABF39}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8CFF749-61AD-4895-93BA-ECE21D8CF7A4}
