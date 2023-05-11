@@ -1,8 +1,10 @@
 using SocialbookAPI.Persistence;
+using SocialbookAPI.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistenceServices();
+builder.Services.AddSignalRServices();
 // Add services to the container.
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
@@ -29,5 +31,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHubs();
+
 
 app.Run();

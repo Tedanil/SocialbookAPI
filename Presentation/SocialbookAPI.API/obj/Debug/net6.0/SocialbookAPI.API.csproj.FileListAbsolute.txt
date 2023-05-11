@@ -5,9 +5,6 @@ D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Soci
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\SocialbookAPI.API.runtimeconfig.json
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\SocialbookAPI.API.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\SocialbookAPI.API.pdb
-D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Azure.Core.dll
-D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Azure.Storage.Blobs.dll
-D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Azure.Storage.Common.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\FluentValidation.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
@@ -23,7 +20,6 @@ D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Micr
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
@@ -53,8 +49,6 @@ D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Swas
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
-D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\System.IO.Hashing.dll
-D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\System.Memory.Data.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\System.Security.Permissions.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\System.Text.Json.dll
@@ -83,3 +77,5 @@ D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\obj\Debug\net6.0\refi
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\obj\Debug\net6.0\SocialbookAPI.API.pdb
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\obj\Debug\net6.0\SocialbookAPI.API.genruntimeconfig.cache
 D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\obj\Debug\net6.0\ref\SocialbookAPI.API.dll
+D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\SocialbookAPI.SignalR.dll
+D:\Socialbook\SocialbookAPI\Presentation\SocialbookAPI.API\bin\Debug\net6.0\SocialbookAPI.SignalR.pdb

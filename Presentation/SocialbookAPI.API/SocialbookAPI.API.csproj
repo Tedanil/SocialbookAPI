@@ -17,8 +17,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\SocialbookAPI.Application\SocialbookAPI.Application.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Socialbook.Infrastructure\SocialbookAPI.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\SocialbookAPI.Infrastructure\SocialbookAPI.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\SocialbookAPI.Persistence\SocialbookAPI.Persistence.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\SocialbookAPI.SignalR\SocialbookAPI.SignalR.csproj" />
   </ItemGroup>
 
 </Project>
