@@ -22,5 +22,10 @@ namespace SocialbookAPI.SignalR.HubServices
         {
             await _hubContext.Clients.All.SendAsync(ReceiveFunctionNames.MessageSent, message);
         }
+
+        public async Task SendMessageAsync(string message)
+        {
+            await _hubContext.Clients.All.SendAsync(ReceiveFunctionNames.MessageSent, message);
+        }
     }
 }

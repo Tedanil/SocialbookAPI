@@ -1,3 +1,4 @@
+using SocialbookAPI.Infrastructure.Services;
 using SocialbookAPI.Persistence;
 using SocialbookAPI.SignalR;
 
@@ -5,10 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistenceServices();
 builder.Services.AddSignalRServices();
+builder.Services.AddStackExchangeRedisCache(options => options.Configuration = "localhost:1559");
+builder.Services.AddHostedService<RedisStartupService>();
 // Add services to the container.
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
-            policy.WithOrigins("https://localhost:4200", "http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+            policy.WithOrigins("https://localhost:4200", "http://localhost:4200").AllowAnyHeader().AllowAnyMethod()
+            .AllowCredentials()
             ));
 
 builder.Services.AddControllers();

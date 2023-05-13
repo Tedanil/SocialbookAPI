@@ -9,5 +9,6 @@ namespace SocialbookAPI.Application.Abstractions.Hubs
     public interface IMessageHubService
     {
         Task MessageSentAsync(string message);
+        Task SendMessageAsync(string message);
     }
 }

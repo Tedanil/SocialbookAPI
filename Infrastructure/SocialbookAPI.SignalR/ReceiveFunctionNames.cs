@@ -9,5 +9,7 @@ namespace SocialbookAPI.SignalR
     public class ReceiveFunctionNames
     {
         public const string MessageSent = "receiveMessageSent";
+        public const string VoteListUpdated = "receiveVoteListUpdated";
+
     }
 }
