@@ -10,6 +10,9 @@ namespace SocialbookAPI.SignalR
     {
         public const string MessageSent = "receiveMessageSent";
         public const string VoteListUpdated = "receiveVoteListUpdated";
+        public const string VideoStateUpdated = "receiveVideoStateUpdated";
+
+
 
     }
 }
