@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using SocialbookAPI.Application.Abstractions.Hubs;
+using SocialbookAPI.Application.Features.Commands.Song.CreateSong;
+using SocialbookAPI.Application.Features.Queries.VideoCache.GetVideoIds;
 using SocialbookAPI.Application.Repositories;
 using SocialbookAPI.Application.ViewModels.Songs;
 using System.Globalization;
@@ -18,51 +21,33 @@ namespace SocialbookAPI.API.Controllers
         readonly private ISongReadRepository _songReadRepository;
         readonly private IMessageHubService _messageHubService;
         readonly IDistributedCache _distributedCache;
-        public SongsController(ISongWriteRepository songWriteRepository, ISongReadRepository songReadRepository, IMessageHubService messageHubService, IDistributedCache distributedCache)
+        readonly IMediator _mediator;
+
+        public SongsController(ISongWriteRepository songWriteRepository, ISongReadRepository songReadRepository, IMessageHubService messageHubService, IDistributedCache distributedCache, IMediator mediator)
         {
             _songWriteRepository = songWriteRepository;
             _songReadRepository = songReadRepository;
             _messageHubService = messageHubService;
             _distributedCache = distributedCache;
+            _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(VM_CreateSong Model)
-        {
-            await _songWriteRepository.AddAsync(new()
-            {
-                
-                VideoId = Model.VideoId,
-                Genre = Model.Genre
-            });
-
-            await _songWriteRepository.SaveAsync();
-            return Ok();
+        public async Task<IActionResult> Post(CreateSongCommandRequest createSongCommandRequest)
+        {          
+            CreateSongCommandResponse response = await _mediator.Send(createSongCommandRequest);
+            return Ok(response);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetVideoIds()
         {
+            GetVideoIdsQueryRequest getVideoIdsQueryRequest = new GetVideoIdsQueryRequest();
+            // Parametreleri URL üzerinden alın ve getVideoIdsQueryRequest nesnesini doldurun
 
-            //var songs = await _songReadRepository.GetAll()
-            //                                      .Select(s => s.VideoId)
-            //                                      .Take(14)
-            //                                      .ToListAsync();
-
-            //var json = JsonSerializer.Serialize(songs);
-            //_distributedCache.SetString("videoIds", json);
-
-            var json = _distributedCache.GetString("videoIds");
-
-            if (json == null)
-            {
-                // Handle the case where the data is not in Redis
-            }
-
-            // Convert the JSON string back to a list of videoIds
-            var videoIds = JsonSerializer.Deserialize<List<string>>(json);
-
-            return Ok(videoIds);   
+            GetVideoIdsQueryResponse response = await _mediator.Send(getVideoIdsQueryRequest);
+            return Ok(response);
+      
         }
 
         [HttpPost("videoIds")]
@@ -146,6 +131,11 @@ namespace SocialbookAPI.API.Controllers
                 {
                     return Ok(currentVideo.VideoId);
                 }
+                else
+                {
+                    // Remove the existing value if it's older than 1 minute
+                    _distributedCache.Remove("currentVideoId");
+                }
             }
 
             currentVideo = new CurrentVideo
@@ -201,7 +191,7 @@ namespace SocialbookAPI.API.Controllers
             else
             {
                 videoIdAndTime.VideoId = "5OeoVyUOorY"; // Default videoId
-                videoIdAndTime.VideoTime = "0"; // Default videoTime
+                videoIdAndTime.VideoTime = "190"; // Default videoTime
             }
 
             return Ok(videoIdAndTime);

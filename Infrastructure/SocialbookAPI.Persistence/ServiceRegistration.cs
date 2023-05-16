@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using SocialbookAPI.Application.Abstractions.Services;
 using SocialbookAPI.Application.Repositories;
 using SocialbookAPI.Domain.Entities.Identity;
 using SocialbookAPI.Persistence.Contexts;
 using SocialbookAPI.Persistence.Repositories;
+using SocialbookAPI.Persistence.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +35,8 @@ namespace SocialbookAPI.Persistence
             services.AddScoped<ISongWriteRepository, SongWriteRepository>();
             services.AddScoped<IFileReadRepository, FileReadRepository>();
             services.AddScoped<IFileWriteRepository, FileWriteRepository>();
+            services.AddScoped<ISongService, SongService>();
+
 
 
 
