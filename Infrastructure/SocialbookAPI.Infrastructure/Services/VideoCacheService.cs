@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using SocialbookAPI.Application.Abstractions.Services;
+using SocialbookAPI.Application.DTOs.VideoCache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,5 +34,39 @@ namespace SocialbookAPI.Infrastructure.Services
 
             return videoIds;
         }
+
+        public async Task<List<string>> UpdateVideoCacheAsync(List<string> videoIds)
+        {
+            // Kontrol et: Redis'de bir değer var mı?
+            var jsonVoteVideos = _distributedCache.GetString("voteIds");
+
+            VoteVideos voteVideos;
+
+            if (jsonVoteVideos == null)
+            {
+                // Redis'de veri yoksa, videoId'lerini yarat ve Redis'e kaydet
+                if (videoIds != null)
+                {
+                    voteVideos = new VoteVideos
+                    {
+                        VideoIds = videoIds,
+                        LastUpdated = DateTime.Now
+                    };
+
+                    var json = JsonSerializer.Serialize(voteVideos);
+
+                    // JSON stringini Redis'e kaydet
+                    await _distributedCache.SetStringAsync("voteIds", json);
+                }
+            }
+
+            jsonVoteVideos = _distributedCache.GetString("voteIds");
+
+            // JSON stringini VoteVideos objesine geri dönüştür
+            voteVideos = JsonSerializer.Deserialize<VoteVideos>(jsonVoteVideos);
+
+            return voteVideos.VideoIds;
+        }
+
     }
 }

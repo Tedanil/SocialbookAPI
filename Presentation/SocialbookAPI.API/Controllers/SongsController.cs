@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using SocialbookAPI.Application.Abstractions.Hubs;
 using SocialbookAPI.Application.Features.Commands.Song.CreateSong;
+using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateVoteVideos;
 using SocialbookAPI.Application.Features.Queries.VideoCache.GetVideoIds;
 using SocialbookAPI.Application.Repositories;
 using SocialbookAPI.Application.ViewModels.Songs;
@@ -53,34 +54,38 @@ namespace SocialbookAPI.API.Controllers
         [HttpPost("videoIds")]
         public async Task<IActionResult> PostVideoIds([FromBody] List<string> videoIds)
         {
-            var jsonVoteVideos = _distributedCache.GetString("voteIds");
+            UpdateVoteVideosCommandRequest request = new UpdateVoteVideosCommandRequest { VideoIds = videoIds };
+            UpdateVoteVideosCommandResponse response = await _mediator.Send(request);
+            return Ok(response.VideoIds);
 
-            VoteVideos voteVideos;
+            //var jsonVoteVideos = _distributedCache.GetString("voteIds");
 
-            if (jsonVoteVideos == null)
-            {
-                // Handle the case where the data is not in Redis
-                if (videoIds != null)
-                {
-                    voteVideos = new VoteVideos
-                    {
-                        VideoIds = videoIds,
-                        LastUpdated = DateTime.Now
-                    };
+            //VoteVideos voteVideos;
 
-                    var json = JsonSerializer.Serialize(voteVideos);
+            //if (jsonVoteVideos == null)
+            //{
+            //    // Handle the case where the data is not in Redis
+            //    if (videoIds != null)
+            //    {
+            //        voteVideos = new VoteVideos
+            //        {
+            //            VideoIds = videoIds,
+            //            LastUpdated = DateTime.Now
+            //        };
 
-                    // Store the JSON string in Redis
-                    _distributedCache.SetString("voteIds", json);
-                }
-            }
+            //        var json = JsonSerializer.Serialize(voteVideos);
 
-            jsonVoteVideos = _distributedCache.GetString("voteIds");
+            //        // Store the JSON string in Redis
+            //        _distributedCache.SetString("voteIds", json);
+            //    }
+            //}
 
-            // Deserialize the JSON string back into a VoteVideos object
-            voteVideos = JsonSerializer.Deserialize<VoteVideos>(jsonVoteVideos);
+            //jsonVoteVideos = _distributedCache.GetString("voteIds");
 
-            return Ok(voteVideos.VideoIds);
+            //// Deserialize the JSON string back into a VoteVideos object
+            //voteVideos = JsonSerializer.Deserialize<VoteVideos>(jsonVoteVideos);
+
+            //return Ok(voteVideos.VideoIds);
         }
 
 
@@ -191,7 +196,7 @@ namespace SocialbookAPI.API.Controllers
             else
             {
                 videoIdAndTime.VideoId = "5OeoVyUOorY"; // Default videoId
-                videoIdAndTime.VideoTime = "190"; // Default videoTime
+                videoIdAndTime.VideoTime = "130"; // Default videoTime
             }
 
             return Ok(videoIdAndTime);
