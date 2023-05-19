@@ -13,6 +13,7 @@ namespace SocialbookAPI.Application.Abstractions.Services
         Task<List<string>> CreateVoteVideoCacheAsync(List<string> videoIds);
         Task<List<string>> UpdateVoteVideoCacheAsync(List<string> videoIds);
         Task<string> UpdateCurrentVideoId(VideoIdAndTime videoIdAndTime);
+        Task<VideoIdAndTime> GetCurrentVideoId();
 
 
     }

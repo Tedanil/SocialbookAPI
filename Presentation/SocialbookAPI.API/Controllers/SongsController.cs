@@ -8,6 +8,7 @@ using SocialbookAPI.Application.Features.Commands.Song.CreateSong;
 using SocialbookAPI.Application.Features.Commands.VideoCache.CreateVoteVideos;
 using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateCurrentVideoId;
 using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateVoteVideos;
+using SocialbookAPI.Application.Features.Queries.VideoCache.GetCurrentVideoId;
 using SocialbookAPI.Application.Features.Queries.VideoCache.GetVideoIds;
 using SocialbookAPI.Application.Repositories;
 using SocialbookAPI.Application.ViewModels.Songs;
@@ -72,51 +73,8 @@ namespace SocialbookAPI.API.Controllers
         [HttpPost("updateCurrentVideoId")]
         public async Task<IActionResult> UpdateCurrentVideoId([FromBody] UpdateCurrentVideoIdCommandRequest updateCurrentVideoIdCommandRequest)
         {
-
-
-
             UpdateCurrentVideoIdCommandResponse response = await _mediator.Send(updateCurrentVideoIdCommandRequest);
             return Ok(response.VideoId);
-            //var jsonCurrentVideo = _distributedCache.GetString("currentVideoId");
-
-            //CurrentVideo currentVideo;
-            //if (jsonCurrentVideo != null)
-            //{
-            //    currentVideo = JsonSerializer.Deserialize<CurrentVideo>(jsonCurrentVideo);
-            //    // Check if 1 minutes has passed since the last update
-            //    if ((DateTime.Now - currentVideo.LastUpdated).TotalMinutes < 1)
-            //    {
-            //        return Ok(currentVideo.VideoId);
-            //    }
-            //    else
-            //    {
-            //        // Remove the existing value if it's older than 1 minute
-            //        _distributedCache.Remove("currentVideoId");
-            //    }
-            //}
-
-            //currentVideo = new CurrentVideo
-            //{
-            //    VideoId = videoIdAndTime.VideoId,
-            //    LastUpdated = DateTime.Now
-            //};
-
-            //var json = JsonSerializer.Serialize(currentVideo);
-
-            //double videoTimeInSeconds;
-            //if (double.TryParse(videoIdAndTime.VideoTime, out videoTimeInSeconds))
-            //{
-            //    TimeSpan cacheDuration = TimeSpan.FromSeconds(videoTimeInSeconds);
-            //    _distributedCache.SetString("currentVideoId", json, new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = cacheDuration });
-            //}
-            //else
-            //{
-            //    // Handle error if videoTime cannot be parsed to a double
-            //}
-
-            
-
-            //return Ok(currentVideo.VideoId);
         }
         public class CurrentVideo
         {
@@ -133,25 +91,31 @@ namespace SocialbookAPI.API.Controllers
         [HttpGet("getCurrentVideoId")]
         public async Task<IActionResult> GetCurrentVideoId()
         {
-            var jsonCurrentVideo = _distributedCache.GetString("currentVideoId");
-            VideoIdAndTime videoIdAndTime = new VideoIdAndTime();
 
-            if (jsonCurrentVideo != null)
-            {
-                var currentVideo = JsonSerializer.Deserialize<CurrentVideo>(jsonCurrentVideo);
-                videoIdAndTime.VideoId = currentVideo.VideoId;
+            GetCurrentVideoIdQueryRequest request = new GetCurrentVideoIdQueryRequest();
 
-                // Calculate the video time (current time - last updated time) in seconds
-                var timeSpan = DateTime.Now - currentVideo.LastUpdated;
-                videoIdAndTime.VideoTime = timeSpan.TotalSeconds.ToString(CultureInfo.InvariantCulture);
-            }
-            else
-            {
-                videoIdAndTime.VideoId = "5OeoVyUOorY"; // Default videoId
-                videoIdAndTime.VideoTime = "130"; // Default videoTime
-            }
+            GetCurrentVideoIdQueryResponse response = await _mediator.Send(request);
 
-            return Ok(videoIdAndTime);
+            return Ok(response);
+            //var jsonCurrentVideo = _distributedCache.GetString("currentVideoId");
+            //VideoIdAndTime videoIdAndTime = new VideoIdAndTime();
+
+            //if (jsonCurrentVideo != null)
+            //{
+            //    var currentVideo = JsonSerializer.Deserialize<CurrentVideo>(jsonCurrentVideo);
+            //    videoIdAndTime.VideoId = currentVideo.VideoId;
+
+            //    // Calculate the video time (current time - last updated time) in seconds
+            //    var timeSpan = DateTime.Now - currentVideo.LastUpdated;
+            //    videoIdAndTime.VideoTime = timeSpan.TotalSeconds.ToString(CultureInfo.InvariantCulture);
+            //}
+            //else
+            //{
+            //    videoIdAndTime.VideoId = "5OeoVyUOorY"; // Default videoId
+            //    videoIdAndTime.VideoTime = "130"; // Default videoTime
+            //}
+
+            //return Ok(videoIdAndTime);
         }
 
 

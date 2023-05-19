@@ -3,6 +3,7 @@ using SocialbookAPI.Application.Abstractions.Services;
 using SocialbookAPI.Application.DTOs.VideoCache;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -137,6 +138,29 @@ namespace SocialbookAPI.Infrastructure.Services
 
 
             return currentVideo.VideoId;
+        }
+
+        public async Task<VideoIdAndTime> GetCurrentVideoId()
+        {
+            var jsonCurrentVideo = _distributedCache.GetString("currentVideoId");
+            VideoIdAndTime videoIdAndTime = new VideoIdAndTime();
+
+            if (jsonCurrentVideo != null)
+            {
+                var currentVideo = JsonSerializer.Deserialize<CurrentVideo>(jsonCurrentVideo);
+                videoIdAndTime.VideoId = currentVideo.VideoId;
+
+                // Calculate the video time (current time - last updated time) in seconds
+                var timeSpan = DateTime.Now - currentVideo.LastUpdated;
+                videoIdAndTime.VideoTime = timeSpan.TotalSeconds.ToString(CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                videoIdAndTime.VideoId = "5OeoVyUOorY"; // Default videoId
+                videoIdAndTime.VideoTime = "130"; // Default videoTime
+            }
+
+            return videoIdAndTime;
         }
     }
 }
