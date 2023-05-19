@@ -94,5 +94,49 @@ namespace SocialbookAPI.Infrastructure.Services
 
             return voteVideos.VideoIds;
         }
+
+        public async Task<string> UpdateCurrentVideoId(VideoIdAndTime videoIdAndTime)
+        {
+            var jsonCurrentVideo = _distributedCache.GetString("currentVideoId");
+
+            CurrentVideo currentVideo;
+            if (jsonCurrentVideo != null)
+            {
+                currentVideo = JsonSerializer.Deserialize<CurrentVideo>(jsonCurrentVideo);
+                // Check if 1 minutes has passed since the last update
+                if ((DateTime.Now - currentVideo.LastUpdated).TotalMinutes < 1)
+                {
+                    return currentVideo.VideoId;
+                }
+                else
+                {
+                    // Remove the existing value if it's older than 1 minute
+                    _distributedCache.Remove("currentVideoId");
+                }
+            }
+
+            currentVideo = new CurrentVideo
+            {
+                VideoId = videoIdAndTime.VideoId,
+                LastUpdated = DateTime.Now
+            };
+
+            var json = JsonSerializer.Serialize(currentVideo);
+
+            double videoTimeInSeconds;
+            if (double.TryParse(videoIdAndTime.VideoTime, out videoTimeInSeconds))
+            {
+                TimeSpan cacheDuration = TimeSpan.FromSeconds(videoTimeInSeconds);
+                _distributedCache.SetString("currentVideoId", json, new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = cacheDuration });
+            }
+            else
+            {
+                // Handle error if videoTime cannot be parsed to a double
+            }
+
+
+
+            return currentVideo.VideoId;
+        }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using SocialbookAPI.Application.Abstractions.Hubs;
 using SocialbookAPI.Application.Features.Commands.Song.CreateSong;
 using SocialbookAPI.Application.Features.Commands.VideoCache.CreateVoteVideos;
+using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateCurrentVideoId;
 using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateVoteVideos;
 using SocialbookAPI.Application.Features.Queries.VideoCache.GetVideoIds;
 using SocialbookAPI.Application.Repositories;
@@ -69,48 +70,53 @@ namespace SocialbookAPI.API.Controllers
         }
 
         [HttpPost("updateCurrentVideoId")]
-        public async Task<IActionResult> UpdateCurrentVideoId([FromBody] VideoIdAndTime videoIdAndTime)
+        public async Task<IActionResult> UpdateCurrentVideoId([FromBody] UpdateCurrentVideoIdCommandRequest updateCurrentVideoIdCommandRequest)
         {
-            var jsonCurrentVideo = _distributedCache.GetString("currentVideoId");
 
-            CurrentVideo currentVideo;
-            if (jsonCurrentVideo != null)
-            {
-                currentVideo = JsonSerializer.Deserialize<CurrentVideo>(jsonCurrentVideo);
-                // Check if 1 minutes has passed since the last update
-                if ((DateTime.Now - currentVideo.LastUpdated).TotalMinutes < 1)
-                {
-                    return Ok(currentVideo.VideoId);
-                }
-                else
-                {
-                    // Remove the existing value if it's older than 1 minute
-                    _distributedCache.Remove("currentVideoId");
-                }
-            }
 
-            currentVideo = new CurrentVideo
-            {
-                VideoId = videoIdAndTime.VideoId,
-                LastUpdated = DateTime.Now
-            };
 
-            var json = JsonSerializer.Serialize(currentVideo);
+            UpdateCurrentVideoIdCommandResponse response = await _mediator.Send(updateCurrentVideoIdCommandRequest);
+            return Ok(response.VideoId);
+            //var jsonCurrentVideo = _distributedCache.GetString("currentVideoId");
 
-            double videoTimeInSeconds;
-            if (double.TryParse(videoIdAndTime.VideoTime, out videoTimeInSeconds))
-            {
-                TimeSpan cacheDuration = TimeSpan.FromSeconds(videoTimeInSeconds);
-                _distributedCache.SetString("currentVideoId", json, new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = cacheDuration });
-            }
-            else
-            {
-                // Handle error if videoTime cannot be parsed to a double
-            }
+            //CurrentVideo currentVideo;
+            //if (jsonCurrentVideo != null)
+            //{
+            //    currentVideo = JsonSerializer.Deserialize<CurrentVideo>(jsonCurrentVideo);
+            //    // Check if 1 minutes has passed since the last update
+            //    if ((DateTime.Now - currentVideo.LastUpdated).TotalMinutes < 1)
+            //    {
+            //        return Ok(currentVideo.VideoId);
+            //    }
+            //    else
+            //    {
+            //        // Remove the existing value if it's older than 1 minute
+            //        _distributedCache.Remove("currentVideoId");
+            //    }
+            //}
+
+            //currentVideo = new CurrentVideo
+            //{
+            //    VideoId = videoIdAndTime.VideoId,
+            //    LastUpdated = DateTime.Now
+            //};
+
+            //var json = JsonSerializer.Serialize(currentVideo);
+
+            //double videoTimeInSeconds;
+            //if (double.TryParse(videoIdAndTime.VideoTime, out videoTimeInSeconds))
+            //{
+            //    TimeSpan cacheDuration = TimeSpan.FromSeconds(videoTimeInSeconds);
+            //    _distributedCache.SetString("currentVideoId", json, new DistributedCacheEntryOptions { AbsoluteExpirationRelativeToNow = cacheDuration });
+            //}
+            //else
+            //{
+            //    // Handle error if videoTime cannot be parsed to a double
+            //}
 
             
 
-            return Ok(currentVideo.VideoId);
+            //return Ok(currentVideo.VideoId);
         }
         public class CurrentVideo
         {
