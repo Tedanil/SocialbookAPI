@@ -30,7 +30,7 @@ namespace SocialbookAPI.Infrastructure.Services
 
             var songs = await songReadRepository.GetAll()
                                                  .Select(s => s.VideoId)
-                                                 .Take(14)
+                                                 .Take(17)
                                                  .ToListAsync();
 
             var json = JsonSerializer.Serialize(songs);

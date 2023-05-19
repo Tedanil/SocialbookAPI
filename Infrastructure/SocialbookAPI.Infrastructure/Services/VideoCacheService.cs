@@ -35,7 +35,7 @@ namespace SocialbookAPI.Infrastructure.Services
             return videoIds;
         }
 
-        public async Task<List<string>> UpdateVideoCacheAsync(List<string> videoIds)
+        public async Task<List<string>> CreateVoteVideoCacheAsync(List<string> videoIds)
         {
             // Kontrol et: Redis'de bir değer var mı?
             var jsonVoteVideos = _distributedCache.GetString("voteIds");
@@ -68,5 +68,31 @@ namespace SocialbookAPI.Infrastructure.Services
             return voteVideos.VideoIds;
         }
 
+        public async Task<List<string>> UpdateVoteVideoCacheAsync(List<string> videoIds)
+        {
+            var jsonVoteVideos = _distributedCache.GetString("voteIds");
+
+            VoteVideos voteVideos;
+            if (jsonVoteVideos != null)
+            {
+                voteVideos = JsonSerializer.Deserialize<VoteVideos>(jsonVoteVideos);
+                // Check if 1 minutes has passed since the last update
+                if ((DateTime.Now - voteVideos.LastUpdated).TotalMinutes < 1)
+                {
+                    return voteVideos.VideoIds;
+                }
+            }
+
+            voteVideos = new VoteVideos
+            {
+                VideoIds = videoIds,
+                LastUpdated = DateTime.Now
+            };
+
+            var json = JsonSerializer.Serialize(voteVideos);
+            _distributedCache.SetString("voteIds", json);
+
+            return voteVideos.VideoIds;
+        }
     }
 }

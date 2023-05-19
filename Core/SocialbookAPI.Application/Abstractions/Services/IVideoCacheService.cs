@@ -9,7 +9,9 @@ namespace SocialbookAPI.Application.Abstractions.Services
     public interface IVideoCacheService
     {
         Task<List<string>> GetVideoIdsAsync();
-        Task<List<string>> UpdateVideoCacheAsync(List<string> videoIds);
+        Task<List<string>> CreateVoteVideoCacheAsync(List<string> videoIds);
+        Task<List<string>> UpdateVoteVideoCacheAsync(List<string> videoIds);
+
 
     }
 }

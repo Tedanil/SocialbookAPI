@@ -19,7 +19,7 @@ namespace SocialbookAPI.Application.Features.Commands.VideoCache.UpdateVoteVideo
 
         public async Task<UpdateVoteVideosCommandResponse> Handle(UpdateVoteVideosCommandRequest request, CancellationToken cancellationToken)
         {
-            var videoIds = await _videoCacheService.UpdateVideoCacheAsync(request.VideoIds);
+            var videoIds = await _videoCacheService.UpdateVoteVideoCacheAsync(request.VideoIds);
             return new()
             {
                 VideoIds = videoIds

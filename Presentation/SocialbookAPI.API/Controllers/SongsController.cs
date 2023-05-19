@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using SocialbookAPI.Application.Abstractions.Hubs;
 using SocialbookAPI.Application.Features.Commands.Song.CreateSong;
+using SocialbookAPI.Application.Features.Commands.VideoCache.CreateVoteVideos;
 using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateVoteVideos;
 using SocialbookAPI.Application.Features.Queries.VideoCache.GetVideoIds;
 using SocialbookAPI.Application.Repositories;
@@ -47,79 +48,24 @@ namespace SocialbookAPI.API.Controllers
             // Parametreleri URL üzerinden alın ve getVideoIdsQueryRequest nesnesini doldurun
 
             GetVideoIdsQueryResponse response = await _mediator.Send(getVideoIdsQueryRequest);
-            return Ok(response);
-      
+            return Ok(response); 
         }
 
         [HttpPost("videoIds")]
         public async Task<IActionResult> PostVideoIds([FromBody] List<string> videoIds)
         {
-            UpdateVoteVideosCommandRequest request = new UpdateVoteVideosCommandRequest { VideoIds = videoIds };
-            UpdateVoteVideosCommandResponse response = await _mediator.Send(request);
-            return Ok(response.VideoIds);
-
-            //var jsonVoteVideos = _distributedCache.GetString("voteIds");
-
-            //VoteVideos voteVideos;
-
-            //if (jsonVoteVideos == null)
-            //{
-            //    // Handle the case where the data is not in Redis
-            //    if (videoIds != null)
-            //    {
-            //        voteVideos = new VoteVideos
-            //        {
-            //            VideoIds = videoIds,
-            //            LastUpdated = DateTime.Now
-            //        };
-
-            //        var json = JsonSerializer.Serialize(voteVideos);
-
-            //        // Store the JSON string in Redis
-            //        _distributedCache.SetString("voteIds", json);
-            //    }
-            //}
-
-            //jsonVoteVideos = _distributedCache.GetString("voteIds");
-
-            //// Deserialize the JSON string back into a VoteVideos object
-            //voteVideos = JsonSerializer.Deserialize<VoteVideos>(jsonVoteVideos);
-
-            //return Ok(voteVideos.VideoIds);
+            CreateVoteVideosCommandRequest request = new CreateVoteVideosCommandRequest { VideoIds = videoIds };
+            CreateVoteVideosCommandResponse response = await _mediator.Send(request);
+            return Ok(response.VideoIds);        
         }
 
 
         [HttpPost("updateVideoIds")]
         public async Task<IActionResult> UpdateVideoIds([FromBody] List<string> videoIds)
         {
-            var jsonVoteVideos = _distributedCache.GetString("voteIds");
-
-            VoteVideos voteVideos;
-            if (jsonVoteVideos != null)
-            {
-                voteVideos = JsonSerializer.Deserialize<VoteVideos>(jsonVoteVideos);
-                // Check if 1 minutes has passed since the last update
-                if ((DateTime.Now - voteVideos.LastUpdated).TotalMinutes < 1)
-                {
-                    return Ok(voteVideos.VideoIds);
-                }
-            }
-
-            voteVideos = new VoteVideos
-            {
-                VideoIds = videoIds,
-                LastUpdated = DateTime.Now
-            };
-
-            var json = JsonSerializer.Serialize(voteVideos);
-            _distributedCache.SetString("voteIds", json);
-
-            return Ok(voteVideos.VideoIds);
-        }
-        public class VoteVideos
-        {
-            public List<string> VideoIds { get; set; }
-            public DateTime LastUpdated { get; set; }
+            UpdateVoteVideosCommandRequest request = new UpdateVoteVideosCommandRequest { VideoIds= videoIds };
+            UpdateVoteVideosCommandResponse response = await _mediator.Send(request);
+            return Ok(response.VideoIds);         
         }
 
         [HttpPost("updateCurrentVideoId")]
