@@ -36,6 +36,8 @@ namespace SocialbookAPI.Persistence
             services.AddScoped<IFileReadRepository, FileReadRepository>();
             services.AddScoped<IFileWriteRepository, FileWriteRepository>();
             services.AddScoped<ISongService, SongService>();
+            services.AddScoped<IUserService, UserService>();
+
 
 
 
