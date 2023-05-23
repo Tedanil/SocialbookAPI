@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SocialbookAPI.Application.Abstractions.Services;
+using SocialbookAPI.Application.Abstractions.Token;
 using SocialbookAPI.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace SocialbookAPI.Infrastructure
         public static void AddInfrastructureServices(this IServiceCollection services)
         {
             services.AddScoped<IVideoCacheService, VideoCacheService>();
+            services.AddScoped<ITokenHandler, TokenHandler>();
+
 
 
         }

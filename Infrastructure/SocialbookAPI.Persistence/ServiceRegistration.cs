@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using SocialbookAPI.Application.Abstractions.Authentications;
 using SocialbookAPI.Application.Abstractions.Services;
 using SocialbookAPI.Application.Repositories;
 using SocialbookAPI.Domain.Entities.Identity;
@@ -35,8 +36,13 @@ namespace SocialbookAPI.Persistence
             services.AddScoped<ISongWriteRepository, SongWriteRepository>();
             services.AddScoped<IFileReadRepository, FileReadRepository>();
             services.AddScoped<IFileWriteRepository, FileWriteRepository>();
+
+
             services.AddScoped<ISongService, SongService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IExternalAuthentication, AuthService>();
+            services.AddScoped<IInternalAuthentication, AuthService>();
 
 
 

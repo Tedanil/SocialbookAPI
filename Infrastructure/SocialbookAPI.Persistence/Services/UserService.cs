@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SocialbookAPI.Application.Abstractions.Services;
 using SocialbookAPI.Application.DTOs.User;
+using SocialbookAPI.Application.Exceptions;
 using SocialbookAPI.Domain.Entities.Identity;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,22 @@ namespace SocialbookAPI.Persistence.Services
                     response.Message += $"{error.Code} - {error.Description}<br>";
 
             return response;
+        }
+
+        public async Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime accessTokenDate, int addOnAccessTokenDate)
+        {
+
+
+            if (user != null)
+            {
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenEndDate = accessTokenDate.AddSeconds(addOnAccessTokenDate);
+                await _userManager.UpdateAsync(user);
+
+            }
+            else
+                throw new NotFoundUserException();
+
         }
     }
 }
