@@ -11,5 +11,6 @@ namespace SocialbookAPI.Application.Abstractions.Services
     {
         Task<CreateUserResponse> CreateAsync(CreateUser model);
 
+
     }
 }
