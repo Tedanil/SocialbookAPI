@@ -22,5 +22,6 @@ namespace SocialbookAPI.API.Controllers
             CreateUserCommandResponse response = await _mediator.Send(createUserCommandRequest);
             return Ok(response);
         }
+
     }
 }
