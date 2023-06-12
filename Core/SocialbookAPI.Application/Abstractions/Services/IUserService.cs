@@ -13,6 +13,7 @@ namespace SocialbookAPI.Application.Abstractions.Services
         Task<CreateUserResponse> CreateAsync(CreateUser model);
         Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime accessTokenDate, int addOnAccessTokenDate);
         Task<UserResponse> GetUserAsync(string refreshToken);
+        Task UpdateUserInfos(string userId);
 
 
 

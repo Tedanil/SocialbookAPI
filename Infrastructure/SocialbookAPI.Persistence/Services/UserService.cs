@@ -29,6 +29,7 @@ namespace SocialbookAPI.Persistence.Services
                 NameSurname = model.NameSurname,
                 Email = model.Email,
                 Level = 1,
+                Exp = 0,
                 VoteCount = 1,
                 Title = "Acemi Dj"
             }, model.Password);
@@ -87,6 +88,42 @@ namespace SocialbookAPI.Persistence.Services
             }
             else
                 throw new NotFoundUserException();
+        }
+
+        public async Task UpdateUserInfos(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new NotFoundUserException();
+
+            }
+
+            if (user.VoteCount > 0)
+            {
+                user.VoteCount--;
+            }
+            else
+            {
+                throw new Exception("User's VoteCount is already zero, can't decrease further");
+            }
+
+            user.Exp += 2;
+
+            // If user's experience reaches or exceeds 100, increase user level and reset experience
+            if (user.Exp >= 100)
+            {
+                user.Level++;
+                user.Exp = 0;
+            }
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                throw new Exception("Error updating user VoteCount");
+            }
         }
     }
 }
