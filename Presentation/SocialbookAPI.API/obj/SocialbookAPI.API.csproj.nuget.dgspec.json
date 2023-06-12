@@ -284,6 +284,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "EFCore.BulkExtensions": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
             "Google.Apis.Auth": {
               "target": "Package",
               "version": "[1.60.0, )"

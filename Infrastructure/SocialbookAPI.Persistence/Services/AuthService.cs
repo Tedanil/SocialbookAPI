@@ -54,7 +54,9 @@ namespace SocialbookAPI.Persistence.Services
                         UserName = email,
                         NameSurname = name,
                         Level = 1,
+                        Exp = 0,
                         VoteCount = 1,
+                        Title = "Acemi Dj",
                     };
 
                     var identityResult = await _userManager.CreateAsync(user);

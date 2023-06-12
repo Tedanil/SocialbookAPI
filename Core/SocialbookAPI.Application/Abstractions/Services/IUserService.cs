@@ -14,6 +14,7 @@ namespace SocialbookAPI.Application.Abstractions.Services
         Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime accessTokenDate, int addOnAccessTokenDate);
         Task<UserResponse> GetUserAsync(string refreshToken);
         Task UpdateUserInfos(string userId);
+        Task UpdateUserVoteCountsBasedOnLevels();
 
 
 

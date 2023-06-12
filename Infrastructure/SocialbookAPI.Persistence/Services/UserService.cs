@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EFCore.BulkExtensions;
+using Microsoft.AspNetCore.Identity;
 using SocialbookAPI.Application.Abstractions.Services;
 using SocialbookAPI.Application.DTOs.User;
 using SocialbookAPI.Application.Exceptions;
 using SocialbookAPI.Domain.Entities.Identity;
+using SocialbookAPI.Persistence.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +16,12 @@ namespace SocialbookAPI.Persistence.Services
     public class UserService : IUserService
     {
         readonly UserManager<AppUser> _userManager;
+        private readonly SocialbookDbContext _context;
 
-        public UserService(UserManager<AppUser> userManager)
+        public UserService(UserManager<AppUser> userManager, SocialbookDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         public async Task<CreateUserResponse> CreateAsync(CreateUser model)
@@ -124,6 +128,31 @@ namespace SocialbookAPI.Persistence.Services
             {
                 throw new Exception("Error updating user VoteCount");
             }
+        }
+
+        public async Task UpdateUserVoteCountsBasedOnLevels()
+        {
+            // Assuming _userManager.Users gives a list of all users
+            var users = _userManager.Users.ToList();
+
+            foreach (var user in users)
+            {
+                if (user.Level >= 1 && user.Level <= 20)
+                {
+                    user.VoteCount = 1;
+                }
+                else if (user.Level > 20 && user.Level <= 50)
+                {
+                    user.VoteCount = 2;
+                }
+                else if (user.Level > 50 && user.Level <= 100)
+                {
+                    user.VoteCount = 3;
+                }
+                // Continue with additional conditions as needed...
+            }
+
+            await _context.BulkUpdateAsync(users);
         }
     }
 }
