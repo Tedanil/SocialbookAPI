@@ -27,7 +27,10 @@ namespace SocialbookAPI.Persistence.Services
                 Id = Guid.NewGuid().ToString(),
                 UserName = model.Username,
                 NameSurname = model.NameSurname,
-                Email = model.Email
+                Email = model.Email,
+                Level = 1,
+                VoteCount = 1,
+                Title = "Acemi Dj"
             }, model.Password);
 
             CreateUserResponse response = new() { Succeeded = result.Succeeded };

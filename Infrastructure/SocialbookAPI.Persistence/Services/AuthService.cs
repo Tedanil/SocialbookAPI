@@ -52,7 +52,9 @@ namespace SocialbookAPI.Persistence.Services
                         Id = Guid.NewGuid().ToString(),
                         Email = email,
                         UserName = email,
-                        NameSurname = name
+                        NameSurname = name,
+                        Level = 1,
+                        VoteCount = 1,
                     };
 
                     var identityResult = await _userManager.CreateAsync(user);
@@ -64,7 +66,7 @@ namespace SocialbookAPI.Persistence.Services
             {
                 await _userManager.AddLoginAsync(user, info);
 
-                await _userManager.AddToRoleAsync(user, "Member");
+                //await _userManager.AddToRoleAsync(user, "Member");
 
                 Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
                 await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 15);
