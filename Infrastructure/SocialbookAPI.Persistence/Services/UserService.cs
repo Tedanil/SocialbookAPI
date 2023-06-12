@@ -63,5 +63,30 @@ namespace SocialbookAPI.Persistence.Services
                 throw new NotFoundUserException();
 
         }
+
+        public async Task<UserResponse> GetUserAsync(string refreshToken)
+        {
+            AppUser? user = _userManager.Users.FirstOrDefault(u => u.RefreshToken == refreshToken);
+            //var roles = await _userManager.GetRolesAsync(user);
+            if (user != null)
+            {
+                return new()
+                {
+                    NameSurname = user.NameSurname,
+                    Username = user.UserName,
+                    Email = user.Email,
+                    Level = user.Level,
+                    Exp = user.Exp,
+                    VoteCount = user.VoteCount,
+                    Title = user.Title,
+                    UserId = user.Id,
+                    //Role = roles.FirstOrDefault()
+
+
+                };
+            }
+            else
+                throw new NotFoundUserException();
+        }
     }
 }
