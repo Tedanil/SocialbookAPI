@@ -1,7 +1,10 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using SocialbookAPI.Application;
+using SocialbookAPI.Application.Validators.Users;
 using SocialbookAPI.Infrastructure;
+using SocialbookAPI.Infrastructure.Filters;
 using SocialbookAPI.Infrastructure.Services;
 using SocialbookAPI.Persistence;
 using SocialbookAPI.SignalR;
@@ -23,8 +26,14 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
             .AllowCredentials()
             ));
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidationFilter>();
+    //options.Filters.Add<RolePermissionFilter>();
+})
+               .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreateUserValidator>())
+               .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
