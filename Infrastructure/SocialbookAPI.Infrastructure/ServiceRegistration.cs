@@ -16,6 +16,8 @@ namespace SocialbookAPI.Infrastructure
         {
             services.AddScoped<IVideoCacheService, VideoCacheService>();
             services.AddScoped<ITokenHandler, TokenHandler>();
+            services.AddScoped<IMailService, MailService>();
+
 
 
 

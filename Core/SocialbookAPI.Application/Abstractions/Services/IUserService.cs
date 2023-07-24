@@ -15,6 +15,7 @@ namespace SocialbookAPI.Application.Abstractions.Services
         Task<UserResponse> GetUserAsync(string refreshToken);
         Task UpdateUserInfos(string userId);
         Task UpdateUserVoteCountsBasedOnLevels();
+        Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
 
 
 

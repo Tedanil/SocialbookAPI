@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using SocialbookAPI.Application.Abstractions.Services;
 using SocialbookAPI.Application.DTOs.User;
 using SocialbookAPI.Application.Exceptions;
+using SocialbookAPI.Application.Helpers;
 using SocialbookAPI.Domain.Entities.Identity;
 using SocialbookAPI.Persistence.Contexts;
 using System;
@@ -153,6 +154,20 @@ namespace SocialbookAPI.Persistence.Services
             }
 
             await _context.BulkUpdateAsync(users);
+        }
+
+        public async Task UpdatePasswordAsync(string userId, string resetToken, string newPassword)
+        {
+            AppUser user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                resetToken = resetToken.UrlDecode();
+                IdentityResult result = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
+                if (result.Succeeded)
+                    await _userManager.UpdateSecurityStampAsync(user);
+                else
+                    throw new PasswordChangeFailedException();
+            }
         }
     }
 }
