@@ -1,6 +1,8 @@
-﻿using SocialbookAPI.Application.Abstractions.Services;
+﻿using Microsoft.EntityFrameworkCore;
+using SocialbookAPI.Application.Abstractions.Services;
 using SocialbookAPI.Application.DTOs.Song;
 using SocialbookAPI.Application.Repositories;
+using SocialbookAPI.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,5 +34,33 @@ namespace SocialbookAPI.Persistence.Services
             await _songWriteRepository.SaveAsync();
             
         }
+
+        public (object, int) GetAllSongs(int page, int size)
+        {
+            var query = _songReadRepository.GetAll(false);
+
+            IQueryable<Song> songsQuery = null;
+
+            if (page != -1 && size != -1)
+                songsQuery = query.Skip(page * size).Take(size);
+            else
+                songsQuery = query;
+
+            var selectedSongs = songsQuery
+              .Select(s => new
+              {
+                 s.Id,
+                 s.VideoId,
+                 s.Genre
+              })
+              .ToList();
+
+            int totalCount = query.Count();
+
+            return (selectedSongs, totalCount);
+
+        }
     }
+
+    
 }

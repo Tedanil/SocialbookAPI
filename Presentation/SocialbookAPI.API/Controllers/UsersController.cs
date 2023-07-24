@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialbookAPI.Application.Features.Commands.AppUser.CreateUser;
 using SocialbookAPI.Application.Features.Commands.AppUser.UpdateAllUsersVoteCounts;
+using SocialbookAPI.Application.Features.Commands.AppUser.UpdatePassword;
 using SocialbookAPI.Application.Features.Commands.AppUser.UpdateUserInfos;
 using SocialbookAPI.Application.Features.Queries.AppUser.GetUserByToken;
 
@@ -44,6 +45,13 @@ namespace SocialbookAPI.API.Controllers
         public async Task<IActionResult> UpdateAllVoteCounts([FromBody] UpdateAllUsersVoteCountsCommandRequest updateAllUsersVoteCountsCommandRequest)
         {
             UpdateAllUsersVoteCountsCommandResponse response = await _mediator.Send(updateAllUsersVoteCountsCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpPost("update-password")]
+        public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordCommandRequest updatePasswordCommandRequest)
+        {
+            UpdatePasswordCommandResponse response = await _mediator.Send(updatePasswordCommandRequest);
             return Ok(response);
         }
 

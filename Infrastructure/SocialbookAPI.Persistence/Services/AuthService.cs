@@ -26,9 +26,10 @@ namespace SocialbookAPI.Persistence.Services
         readonly ITokenHandler _tokenHandler;
         readonly SignInManager<Domain.Entities.Identity.AppUser> _signInManager;
         readonly IUserService _userService;
-        
+        readonly IMailService _mailService;
 
-        public AuthService(IHttpClientFactory httpClientFactory, IConfiguration configuration, UserManager<Domain.Entities.Identity.AppUser> userManager, ITokenHandler tokenHandler, SignInManager<AppUser> signInManager, IUserService userService)
+
+        public AuthService(IHttpClientFactory httpClientFactory, IConfiguration configuration, UserManager<Domain.Entities.Identity.AppUser> userManager, ITokenHandler tokenHandler, SignInManager<AppUser> signInManager, IUserService userService, IMailService mailService)
         {
             _httpClient = httpClientFactory.CreateClient();
             _configuration = configuration;
@@ -36,7 +37,7 @@ namespace SocialbookAPI.Persistence.Services
             _tokenHandler = tokenHandler;
             _signInManager = signInManager;
             _userService = userService;
-            
+            _mailService = mailService;
         }
 
         async Task<Token> CreateUserExternalAsync(AppUser user, string email, string name, UserLoginInfo info, int accessTokenLifeTime)
@@ -175,7 +176,9 @@ namespace SocialbookAPI.Persistence.Services
                 //resetToken = WebEncoders.Base64UrlEncode(tokenBytes);
                 resetToken = resetToken.UrlEncode();
 
-                
+                await _mailService.SendPasswordResetMailAsync(email, user.Id, resetToken);
+
+
             }
         }
 
