@@ -22,6 +22,21 @@ namespace SocialbookAPI.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("AppRoleEndpoint", b =>
+                {
+                    b.Property<Guid>("EndpointsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("RolesId")
+                        .HasColumnType("text");
+
+                    b.HasKey("EndpointsId", "RolesId");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("AppRoleEndpoint");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -126,6 +141,44 @@ namespace SocialbookAPI.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("SocialbookAPI.Domain.Entities.Endpoint", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ActionType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Definition")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("HttpType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("MenuId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuId");
+
+                    b.ToTable("Endpoints");
                 });
 
             modelBuilder.Entity("SocialbookAPI.Domain.Entities.File", b =>
@@ -268,6 +321,27 @@ namespace SocialbookAPI.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("SocialbookAPI.Domain.Entities.Menu", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Menus");
+                });
+
             modelBuilder.Entity("SocialbookAPI.Domain.Entities.Song", b =>
                 {
                     b.Property<Guid>("Id")
@@ -307,6 +381,21 @@ namespace SocialbookAPI.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.HasDiscriminator().HasValue("SongImage");
+                });
+
+            modelBuilder.Entity("AppRoleEndpoint", b =>
+                {
+                    b.HasOne("SocialbookAPI.Domain.Entities.Endpoint", null)
+                        .WithMany()
+                        .HasForeignKey("EndpointsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SocialbookAPI.Domain.Entities.Identity.AppRole", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -360,6 +449,17 @@ namespace SocialbookAPI.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SocialbookAPI.Domain.Entities.Endpoint", b =>
+                {
+                    b.HasOne("SocialbookAPI.Domain.Entities.Menu", "Menu")
+                        .WithMany("Endpoints")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
+                });
+
             modelBuilder.Entity("SocialbookAPI.Domain.Entities.Song", b =>
                 {
                     b.HasOne("SocialbookAPI.Domain.Entities.SongImage", "Image")
@@ -367,6 +467,11 @@ namespace SocialbookAPI.Persistence.Migrations
                         .HasForeignKey("ImageId");
 
                     b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("SocialbookAPI.Domain.Entities.Menu", b =>
+                {
+                    b.Navigation("Endpoints");
                 });
 #pragma warning restore 612, 618
         }

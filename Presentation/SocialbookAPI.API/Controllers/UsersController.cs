@@ -1,11 +1,17 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SocialbookAPI.Application.Consts;
+using SocialbookAPI.Application.CustomAttributes;
+using SocialbookAPI.Application.Enums;
 using SocialbookAPI.Application.Features.Commands.AppUser.CreateUser;
 using SocialbookAPI.Application.Features.Commands.AppUser.UpdateAllUsersVoteCounts;
 using SocialbookAPI.Application.Features.Commands.AppUser.UpdatePassword;
 using SocialbookAPI.Application.Features.Commands.AppUser.UpdateUserInfos;
+using SocialbookAPI.Application.Features.Queries.AppUser.GetAllUsers;
 using SocialbookAPI.Application.Features.Queries.AppUser.GetUserByToken;
+using System.Net;
 
 namespace SocialbookAPI.API.Controllers
 {
@@ -52,6 +58,16 @@ namespace SocialbookAPI.API.Controllers
         public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordCommandRequest updatePasswordCommandRequest)
         {
             UpdatePasswordCommandResponse response = await _mediator.Send(updatePasswordCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Users,
+            ActionType = ActionType.Reading, Definition = "Get All Users")]
+        public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUsersQueryRequest getAllUsersQueryRequest)
+        {
+            GetAllUsersQueryResponse response = await _mediator.Send(getAllUsersQueryRequest);
             return Ok(response);
         }
 

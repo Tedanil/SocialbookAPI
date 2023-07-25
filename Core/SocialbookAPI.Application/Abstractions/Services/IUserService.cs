@@ -16,6 +16,8 @@ namespace SocialbookAPI.Application.Abstractions.Services
         Task UpdateUserInfos(string userId);
         Task UpdateUserVoteCountsBasedOnLevels();
         Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
+        Task<List<ListUser>> GetAllUsersAsync(int page, int size);
+        int TotalUsersCount { get; }
 
 
 

@@ -1,5 +1,6 @@
 ﻿using EFCore.BulkExtensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SocialbookAPI.Application.Abstractions.Services;
 using SocialbookAPI.Application.DTOs.User;
 using SocialbookAPI.Application.Exceptions;
@@ -18,6 +19,8 @@ namespace SocialbookAPI.Persistence.Services
     {
         readonly UserManager<AppUser> _userManager;
         private readonly SocialbookDbContext _context;
+
+        
 
         public UserService(UserManager<AppUser> userManager, SocialbookDbContext context)
         {
@@ -169,5 +172,25 @@ namespace SocialbookAPI.Persistence.Services
                     throw new PasswordChangeFailedException();
             }
         }
+
+        public async Task<List<ListUser>> GetAllUsersAsync(int page, int size)
+        {
+            var users = await _userManager.Users
+                  .Skip(page * size)
+                  .Take(size)
+                  .ToListAsync();
+
+            return users.Select(user => new ListUser
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                NameSurname = user.NameSurname,
+                Email = user.Email,
+                TwoFactorEnabled = user.TwoFactorEnabled
+
+            }).ToList();
+        }
+
+        public int TotalUsersCount => _userManager.Users.Count();
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SocialbookAPI.Application.Abstractions.Services;
+using SocialbookAPI.Application.Abstractions.Services.Configurations;
 using SocialbookAPI.Application.Abstractions.Token;
 using SocialbookAPI.Infrastructure.Services;
+using SocialbookAPI.Infrastructure.Services.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +19,7 @@ namespace SocialbookAPI.Infrastructure
             services.AddScoped<IVideoCacheService, VideoCacheService>();
             services.AddScoped<ITokenHandler, TokenHandler>();
             services.AddScoped<IMailService, MailService>();
-
-
-
+            services.AddScoped<IApplicationService, ApplicationService>();
 
         }
     }

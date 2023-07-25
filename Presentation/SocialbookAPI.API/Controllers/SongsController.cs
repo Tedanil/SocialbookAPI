@@ -1,9 +1,13 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using SocialbookAPI.Application.Abstractions.Hubs;
+using SocialbookAPI.Application.Consts;
+using SocialbookAPI.Application.CustomAttributes;
+using SocialbookAPI.Application.Enums;
 using SocialbookAPI.Application.Features.Commands.Song.CreateSong;
 using SocialbookAPI.Application.Features.Commands.VideoCache.CreateVoteVideos;
 using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateCurrentVideoId;
@@ -38,6 +42,9 @@ namespace SocialbookAPI.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Songs,
+            ActionType = ActionType.Writing, Definition = "Create Song")]
         public async Task<IActionResult> Post(CreateSongCommandRequest createSongCommandRequest)
         {          
             CreateSongCommandResponse response = await _mediator.Send(createSongCommandRequest);

@@ -22,6 +22,9 @@ namespace SocialbookAPI.Persistence.Contexts
         public DbSet<Song> Songs { get; set; }
         public DbSet<Domain.Entities.File> Files { get; set; }
 
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<Endpoint> Endpoints { get; set; }
+
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             var datas = ChangeTracker.Entries<BaseEntity>();
