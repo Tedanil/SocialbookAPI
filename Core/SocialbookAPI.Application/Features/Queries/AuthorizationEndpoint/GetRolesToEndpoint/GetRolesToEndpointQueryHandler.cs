@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SocialbookAPI.Application.Abstractions.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,20 @@ namespace SocialbookAPI.Application.Features.Queries.AuthorizationEndpoint.GetRo
 {
     public class GetRolesToEndpointQueryHandler : IRequestHandler<GetRolesToEndpointQueryRequest, GetRolesToEndpointQueryResponse>
     {
-        public Task<GetRolesToEndpointQueryResponse> Handle(GetRolesToEndpointQueryRequest request, CancellationToken cancellationToken)
+        readonly IAuthorizationEndpointService _authorizationEndpointService;
+
+        public GetRolesToEndpointQueryHandler(IAuthorizationEndpointService authorizationEndpointService)
         {
-            throw new NotImplementedException();
+            _authorizationEndpointService = authorizationEndpointService;
+        }
+
+        public async Task<GetRolesToEndpointQueryResponse> Handle(GetRolesToEndpointQueryRequest request, CancellationToken cancellationToken)
+        {
+            var datas = await _authorizationEndpointService.GetRolesToEndpointAsync(request.Code, request.Menu);
+            return new()
+            {
+                Roles = datas
+            };
         }
     }
 }

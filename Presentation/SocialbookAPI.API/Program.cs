@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using SocialbookAPI.API.Filters;
 using SocialbookAPI.Application;
 using SocialbookAPI.Application.Validators.Users;
 using SocialbookAPI.Infrastructure;
@@ -29,7 +30,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidationFilter>();
-    //options.Filters.Add<RolePermissionFilter>();
+    options.Filters.Add<RolePermissionFilter>();
 })
                .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreateUserValidator>())
                .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
