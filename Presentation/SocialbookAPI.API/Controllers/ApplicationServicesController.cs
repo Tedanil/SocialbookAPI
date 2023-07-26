@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialbookAPI.Application.Abstractions.Services.Configurations;
 using SocialbookAPI.Application.CustomAttributes;
 using SocialbookAPI.Application.Enums;
+using System.Net;
 
 namespace SocialbookAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Admin")]
     public class ApplicationServicesController : ControllerBase
     {
         readonly IApplicationService _applicationService;

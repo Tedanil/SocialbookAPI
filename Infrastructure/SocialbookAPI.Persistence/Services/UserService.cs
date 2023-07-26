@@ -52,8 +52,8 @@ namespace SocialbookAPI.Persistence.Services
             if (result.Succeeded)
             {
                 response.Message = "Kullanıcı başarıyla oluşturulmuştur!";
-                //var user = await _userManager.FindByEmailAsync(model.Email);
-                //await _userManager.AddToRoleAsync(user, "Member");
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                await _userManager.AddToRoleAsync(user, "Member");
             }
             else
                 foreach (var error in result.Errors)
@@ -81,7 +81,7 @@ namespace SocialbookAPI.Persistence.Services
         public async Task<UserResponse> GetUserAsync(string refreshToken)
         {
             AppUser? user = _userManager.Users.FirstOrDefault(u => u.RefreshToken == refreshToken);
-            //var roles = await _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
             if (user != null)
             {
                 return new()
@@ -94,7 +94,7 @@ namespace SocialbookAPI.Persistence.Services
                     VoteCount = user.VoteCount,
                     Title = user.Title,
                     UserId = user.Id,
-                    //Role = roles.FirstOrDefault()
+                    Role = roles.FirstOrDefault()
 
 
                 };

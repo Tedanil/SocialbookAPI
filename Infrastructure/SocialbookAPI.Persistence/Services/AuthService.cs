@@ -69,7 +69,7 @@ namespace SocialbookAPI.Persistence.Services
             {
                 await _userManager.AddLoginAsync(user, info);
 
-                //await _userManager.AddToRoleAsync(user, "Member");
+                await _userManager.AddToRoleAsync(user, "Member");
 
                 Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTime, user);
                 await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 15);

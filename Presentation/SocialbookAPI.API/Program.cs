@@ -14,6 +14,9 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
+
+
 builder.Services.AddAplicationServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddPersistenceServices();
@@ -64,6 +67,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles();
 
 app.UseCors();
 app.UseHttpsRedirection();

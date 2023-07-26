@@ -60,6 +60,12 @@ namespace SocialbookAPI.Persistence.Services
             return (selectedSongs, totalCount);
 
         }
+
+        public async Task RemoveSongAsync(string id)
+        {
+            await _songWriteRepository.RemoveAsync(id);
+            await _songWriteRepository.SaveAsync();
+        }
     }
 
     

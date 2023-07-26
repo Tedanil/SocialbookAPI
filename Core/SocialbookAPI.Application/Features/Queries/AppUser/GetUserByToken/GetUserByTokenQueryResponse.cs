@@ -10,6 +10,6 @@
         public int? Exp { get; set; }
         public string? Title { get; set; }
         public int? VoteCount { get; set; }
-        //public string? Role { get; set; }
+        public string? Role { get; set; }
     }
 }

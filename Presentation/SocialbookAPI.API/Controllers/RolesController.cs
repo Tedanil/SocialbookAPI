@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialbookAPI.Application.Consts;
@@ -14,6 +15,8 @@ namespace SocialbookAPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Admin")]
+
     public class RolesController : ControllerBase
     {
         IMediator _mediator;

@@ -9,6 +9,7 @@ using SocialbookAPI.Application.Consts;
 using SocialbookAPI.Application.CustomAttributes;
 using SocialbookAPI.Application.Enums;
 using SocialbookAPI.Application.Features.Commands.Song.CreateSong;
+using SocialbookAPI.Application.Features.Commands.Song.RemoveSong;
 using SocialbookAPI.Application.Features.Commands.VideoCache.CreateVoteVideos;
 using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateCurrentVideoId;
 using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateVoteVideos;
@@ -52,11 +53,24 @@ namespace SocialbookAPI.API.Controllers
         }
 
         [HttpGet("getSongs")]
+        [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Songs,
+            ActionType = ActionType.Reading, Definition = "Get All Songs")]
         public async Task<IActionResult> Get([FromQuery] GetAllSongsQueryRequest getAllSongsQueryRequest)
         {
 
             GetAllSongsQueryResponse response = await _mediator.Send(getAllSongsQueryRequest);
             return Ok(response);
+        }
+
+        [HttpDelete("{Id}")]
+        [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Songs,
+            ActionType = ActionType.Deleting, Definition = "Remove Song")]
+        public async Task<IActionResult> Delete([FromRoute] RemoveSongCommandRequest removeSongCommandRequest)
+        {
+            RemoveSongCommandResponse response = await _mediator.Send(removeSongCommandRequest);
+            return Ok();
         }
 
         [HttpGet]

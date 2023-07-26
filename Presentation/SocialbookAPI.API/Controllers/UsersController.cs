@@ -36,6 +36,8 @@ namespace SocialbookAPI.API.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize(AuthenticationSchemes = "Admin")]
+        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Current User", Menu = AuthorizeDefinitionConstants.Users)]
         public async Task<IActionResult> GetUser([FromBody] GetUserByTokenQueryRequest getUserByTokenQueryRequest)
         {
             GetUserByTokenQueryResponse response = await _mediator.Send(getUserByTokenQueryRequest);

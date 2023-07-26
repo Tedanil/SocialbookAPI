@@ -11,5 +11,7 @@ namespace SocialbookAPI.Application.Abstractions.Services
     {
         public Task CreateSongAsync(CreateSong createSong);
         (object, int) GetAllSongs(int page, int size);
+        public Task RemoveSongAsync(string id);
+
     }
 }

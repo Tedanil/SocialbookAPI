@@ -31,7 +31,7 @@ namespace SocialbookAPI.Application.Features.Queries.AppUser.GetUserByToken
                 VoteCount = data.VoteCount,
                 Title = data.Title,
                 UserId = data.UserId,
-                //Role = data.Role
+                Role = data.Role
             };
 
         }
