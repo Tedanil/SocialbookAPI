@@ -14,15 +14,17 @@ namespace SocialbookAPI.Infrastructure.Services
     public class VideoCacheService : IVideoCacheService
     {
         readonly IDistributedCache _distributedCache;
+        readonly IYouTubeService _youTubeService;
 
-        public VideoCacheService(IDistributedCache distributedCache)
+        public VideoCacheService(IDistributedCache distributedCache, IYouTubeService youTubeService)
         {
             _distributedCache = distributedCache;
+            _youTubeService = youTubeService;
         }
 
         public async Task<List<string>> GetVideoIdsAsync()
         {
-            var json = await _distributedCache.GetStringAsync("videoIds");
+            var json = await _distributedCache.GetStringAsync("voteIds");
 
             if (json == null)
             {
@@ -30,10 +32,10 @@ namespace SocialbookAPI.Infrastructure.Services
                 return new List<string>(); // Return an empty list or a default list if necessary
             }
 
-            // Convert the JSON string back to a list of videoIds
-            var videoIds = JsonSerializer.Deserialize<List<string>>(json);
+            // Convert the JSON string back to a VoteVideos object
+            var voteVideos = JsonSerializer.Deserialize<VoteVideos>(json);
 
-            return videoIds;
+            return voteVideos.VideoIds;
         }
 
         public async Task<List<string>> CreateVoteVideoCacheAsync(List<string> videoIds)
@@ -98,22 +100,14 @@ namespace SocialbookAPI.Infrastructure.Services
 
         public async Task<string> UpdateCurrentVideoId(VideoIdAndTime videoIdAndTime)
         {
-            var jsonCurrentVideo = _distributedCache.GetString("currentVideoId");
+           var jsonCurrentVideo = _distributedCache.GetString("currentVideoId");
 
             CurrentVideo currentVideo;
             if (jsonCurrentVideo != null)
             {
-                currentVideo = JsonSerializer.Deserialize<CurrentVideo>(jsonCurrentVideo);
-                // Check if 1 minutes has passed since the last update
-                if ((DateTime.Now - currentVideo.LastUpdated).TotalMinutes < 1)
-                {
-                    return currentVideo.VideoId;
-                }
-                else
-                {
-                    // Remove the existing value if it's older than 1 minute
-                    _distributedCache.Remove("currentVideoId");
-                }
+               
+              _distributedCache.Remove("currentVideoId");
+               
             }
 
             currentVideo = new CurrentVideo
@@ -135,10 +129,13 @@ namespace SocialbookAPI.Infrastructure.Services
                 // Handle error if videoTime cannot be parsed to a double
             }
 
-
+            
 
             return currentVideo.VideoId;
         }
+
+        
+
 
         public async Task<VideoIdAndTime> GetCurrentVideoId()
         {
@@ -162,5 +159,35 @@ namespace SocialbookAPI.Infrastructure.Services
 
             return videoIdAndTime;
         }
+
+        public async Task UpdateVoteIdsInCacheAsync()
+        {
+            // Önce video ID'lerini al
+            var jsonVideoIds = await _distributedCache.GetStringAsync("videoIds");
+            if (jsonVideoIds == null)
+            {
+                return; // ya da başka bir hata işleme eylemi
+            }
+            var videoIds = JsonSerializer.Deserialize<List<string>>(jsonVideoIds);
+
+            // Bu ID'lerden rastgele 3 tanesini seç
+            Random random = new Random();
+            List<string> selectedVideoIds = videoIds.OrderBy(x => random.Next()).Take(3).ToList();
+
+            // Yeni bir VoteVideos nesnesi oluştur
+            VoteVideos voteVideos = new VoteVideos
+            {
+                VideoIds = selectedVideoIds,
+                LastUpdated = DateTime.Now
+            };
+
+            // Eğer voteIds anahtarı zaten Redis'te varsa, bu anahtarın değerini sil
+            await _distributedCache.RemoveAsync("voteIds");
+
+            // Bu nesneyi JSON'a dönüştür ve Redis'e kaydet
+            var json = JsonSerializer.Serialize(voteVideos);
+            await _distributedCache.SetStringAsync("voteIds", json);
+        }
+
     }
 }

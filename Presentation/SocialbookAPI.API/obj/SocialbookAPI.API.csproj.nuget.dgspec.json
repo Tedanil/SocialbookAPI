@@ -270,6 +270,9 @@
             "projectReferences": {
               "D:\\Socialbook\\SocialbookAPI\\Core\\SocialbookAPI.Application\\SocialbookAPI.Application.csproj": {
                 "projectPath": "D:\\Socialbook\\SocialbookAPI\\Core\\SocialbookAPI.Application\\SocialbookAPI.Application.csproj"
+              },
+              "D:\\Socialbook\\SocialbookAPI\\Infrastructure\\SocialbookAPI.SignalR\\SocialbookAPI.SignalR.csproj": {
+                "projectPath": "D:\\Socialbook\\SocialbookAPI\\Infrastructure\\SocialbookAPI.SignalR\\SocialbookAPI.SignalR.csproj"
               }
             }
           }

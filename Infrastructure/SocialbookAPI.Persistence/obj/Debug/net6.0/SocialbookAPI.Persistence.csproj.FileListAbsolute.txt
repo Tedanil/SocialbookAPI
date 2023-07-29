@@ -17,3 +17,5 @@ D:\Socialbook\SocialbookAPI\Infrastructure\SocialbookAPI.Persistence\obj\Debug\n
 D:\Socialbook\SocialbookAPI\Infrastructure\SocialbookAPI.Persistence\obj\Debug\net6.0\SocialbookAPI.Persistence.pdb
 D:\Socialbook\SocialbookAPI\Infrastructure\SocialbookAPI.Persistence\obj\Debug\net6.0\SocialbookAPI.Persistence.genruntimeconfig.cache
 D:\Socialbook\SocialbookAPI\Infrastructure\SocialbookAPI.Persistence\obj\Debug\net6.0\ref\SocialbookAPI.Persistence.dll
+D:\Socialbook\SocialbookAPI\Infrastructure\SocialbookAPI.Persistence\bin\Debug\net6.0\SocialbookAPI.SignalR.dll
+D:\Socialbook\SocialbookAPI\Infrastructure\SocialbookAPI.Persistence\bin\Debug\net6.0\SocialbookAPI.SignalR.pdb

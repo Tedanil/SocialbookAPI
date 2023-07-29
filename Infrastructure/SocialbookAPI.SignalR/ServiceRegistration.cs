@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SocialbookAPI.Application.Abstractions.Hubs;
+using SocialbookAPI.Application.Abstractions.Services;
 using SocialbookAPI.SignalR.HubServices;
+using SocialbookAPI.SignalR.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,8 @@ namespace SocialbookAPI.SignalR
         {
             collection.AddTransient<IMessageHubService, MessageHubService>();
             collection.AddSignalR();
+            collection.AddSingleton<IVoteService, VoteService>();
+
         }
     }
 }

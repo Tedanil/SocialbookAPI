@@ -1510,6 +1510,20 @@
         "runtime": {
           "bin/placeholder/SocialbookAPI.Domain.dll": {}
         }
+      },
+      "SocialbookAPI.SignalR/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.Internal": "6.0.9",
+          "SocialbookAPI.Application": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SocialbookAPI.SignalR.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SocialbookAPI.SignalR.dll": {}
+        }
       }
     }
   },
@@ -3975,6 +3989,11 @@
       "type": "project",
       "path": "../../Core/SocialbookAPI.Domain/SocialbookAPI.Domain.csproj",
       "msbuildProject": "../../Core/SocialbookAPI.Domain/SocialbookAPI.Domain.csproj"
+    },
+    "SocialbookAPI.SignalR/1.0.0": {
+      "type": "project",
+      "path": "../SocialbookAPI.SignalR/SocialbookAPI.SignalR.csproj",
+      "msbuildProject": "../SocialbookAPI.SignalR/SocialbookAPI.SignalR.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3988,7 +4007,8 @@
       "Microsoft.Extensions.Configuration.Json >= 7.0.0",
       "Microsoft.Extensions.DependencyInjection.Abstractions >= 7.0.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 6.0.6",
-      "SocialbookAPI.Application >= 1.0.0"
+      "SocialbookAPI.Application >= 1.0.0",
+      "SocialbookAPI.SignalR >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4025,6 +4045,9 @@
           "projectReferences": {
             "D:\\Socialbook\\SocialbookAPI\\Core\\SocialbookAPI.Application\\SocialbookAPI.Application.csproj": {
               "projectPath": "D:\\Socialbook\\SocialbookAPI\\Core\\SocialbookAPI.Application\\SocialbookAPI.Application.csproj"
+            },
+            "D:\\Socialbook\\SocialbookAPI\\Infrastructure\\SocialbookAPI.SignalR\\SocialbookAPI.SignalR.csproj": {
+              "projectPath": "D:\\Socialbook\\SocialbookAPI\\Infrastructure\\SocialbookAPI.SignalR\\SocialbookAPI.SignalR.csproj"
             }
           }
         }

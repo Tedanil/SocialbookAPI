@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0j1+o/l2N/EvM57LJo9vfoLXCLooM82JOWFg7agrvQPeG4NW62LU/drjull3M8sANWOAP4LRS5evkFtHjhSXfw==",
+  "dgSpecHash": "vQujqJpTS66V2Z+upADRGrSyo/S+HbjNkTEdASoa5Tsb9b7iZ1YtXeERHAEnRhgExdMANEjcA6rmHJKwebgx1A==",
   "success": true,
   "projectFilePath": "D:\\Socialbook\\SocialbookAPI\\Infrastructure\\SocialbookAPI.Persistence\\SocialbookAPI.Persistence.csproj",
   "expectedPackageFiles": [

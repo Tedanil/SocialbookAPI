@@ -1780,7 +1780,8 @@
           "Microsoft.Extensions.Configuration.Json": "7.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "6.0.6",
-          "SocialbookAPI.Application": "1.0.0"
+          "SocialbookAPI.Application": "1.0.0",
+          "SocialbookAPI.SignalR": "1.0.0"
         },
         "compile": {
           "bin/placeholder/SocialbookAPI.Persistence.dll": {}

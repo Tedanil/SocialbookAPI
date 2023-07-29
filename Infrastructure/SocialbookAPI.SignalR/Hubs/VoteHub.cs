@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using SocialbookAPI.Application.Abstractions.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,24 @@ namespace SocialbookAPI.SignalR.Hubs
 {
     public class VoteHub : Hub
     {
+        private readonly IVoteService _voteService;
+
+        public VoteHub(IVoteService voteService)
+        {
+            _voteService = voteService;
+        }
+
         public async Task UpdateVoteList(string videoId, VideoData videoData)
         {
+            _voteService.Vote(videoId);
+
+            var votes = _voteService.GetVotes(videoId);
+
             var voteUpdate = new
             {
                 VideoId = videoId,
-                VideoData = videoData
+                VideoData = videoData,
+                Votes = votes
             };
 
             await Clients.All.SendAsync(ReceiveFunctionNames.VoteListUpdated, voteUpdate);

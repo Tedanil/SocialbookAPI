@@ -15,6 +15,8 @@ namespace SocialbookAPI.SignalR
             webApplication.MapHub<MessageHub>("/messages-hub");
             webApplication.MapHub<VoteHub>("/votes-hub");
             webApplication.MapHub<PlayerHub>("/players-hub");
+            webApplication.MapHub<VideoIdHub>("/videoIds-hub");
+
 
 
         }

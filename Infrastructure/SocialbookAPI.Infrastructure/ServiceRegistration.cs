@@ -16,10 +16,12 @@ namespace SocialbookAPI.Infrastructure
     {
         public static void AddInfrastructureServices(this IServiceCollection services)
         {
-            services.AddScoped<IVideoCacheService, VideoCacheService>();
+            services.AddSingleton<IVideoCacheService, VideoCacheService>();
             services.AddScoped<ITokenHandler, TokenHandler>();
             services.AddScoped<IMailService, MailService>();
             services.AddScoped<IApplicationService, ApplicationService>();
+            services.AddSingleton<IYouTubeService, YouTubeService>();
+
 
         }
     }
