@@ -25,10 +25,14 @@ namespace SocialbookAPI.Persistence.Services
         private readonly IYouTubeService _youTubeService;
         private readonly IVideoCacheService _videoCacheService;
         private readonly IHubContext<VideoIdHub> _hubContext;
+        private readonly IServiceScopeFactory _scopeFactory;
 
 
 
-        public RedisStartupService(IDistributedCache distributedCache, IServiceScopeFactory serviceScopeFactory, IVoteService voteService, IYouTubeService youTubeService, IVideoCacheService videoCacheService, IHubContext<VideoIdHub> hubContext)
+
+        public RedisStartupService(IDistributedCache distributedCache, IServiceScopeFactory serviceScopeFactory,
+            IVoteService voteService, IYouTubeService youTubeService, IVideoCacheService videoCacheService,
+            IHubContext<VideoIdHub> hubContext, IServiceScopeFactory scopeFactory)
         {
             _distributedCache = distributedCache;
             _serviceScopeFactory = serviceScopeFactory;
@@ -36,6 +40,7 @@ namespace SocialbookAPI.Persistence.Services
             _youTubeService = youTubeService;
             _videoCacheService = videoCacheService;
             _hubContext = hubContext;
+            _scopeFactory = scopeFactory;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -116,6 +121,12 @@ namespace SocialbookAPI.Persistence.Services
                 await _videoCacheService.UpdateCurrentVideoId(videoIdAndTime);
                 voteService.ResetVotes();
                 await _videoCacheService.UpdateVoteIdsInCacheAsync();
+                using (var scope = _scopeFactory.CreateScope())
+                {
+                    var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
+                    await userService.UpdateUserVoteCountsBasedOnLevels();
+                }
+
                 await _hubContext.Clients.All.SendAsync(ReceiveFunctionNames.VideoIdSent, videoIdAndTime.VideoId);
 
 

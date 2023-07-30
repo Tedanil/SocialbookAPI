@@ -15,11 +15,13 @@ namespace SocialbookAPI.Infrastructure.Services
     {
         readonly IDistributedCache _distributedCache;
         readonly IYouTubeService _youTubeService;
+        
 
         public VideoCacheService(IDistributedCache distributedCache, IYouTubeService youTubeService)
         {
             _distributedCache = distributedCache;
             _youTubeService = youTubeService;
+            
         }
 
         public async Task<List<string>> GetVideoIdsAsync()
@@ -153,7 +155,8 @@ namespace SocialbookAPI.Infrastructure.Services
             }
             else
             {
-                videoIdAndTime.VideoId = "5OeoVyUOorY"; // Default videoId
+                
+                videoIdAndTime.VideoId = "L_oLGjRLLuk"; // Default videoId
                 videoIdAndTime.VideoTime = "130"; // Default videoTime
             }
 
@@ -187,6 +190,7 @@ namespace SocialbookAPI.Infrastructure.Services
             // Bu nesneyi JSON'a dönüştür ve Redis'e kaydet
             var json = JsonSerializer.Serialize(voteVideos);
             await _distributedCache.SetStringAsync("voteIds", json);
+            
         }
 
     }
