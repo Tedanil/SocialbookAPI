@@ -14,6 +14,7 @@ using SocialbookAPI.Application.Features.Commands.VideoCache.CreateVoteVideos;
 using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateCurrentVideoId;
 using SocialbookAPI.Application.Features.Commands.VideoCache.UpdateVoteVideos;
 using SocialbookAPI.Application.Features.Queries.Song.GetAllSongs;
+using SocialbookAPI.Application.Features.Queries.Song.GetSongVideoVotes;
 using SocialbookAPI.Application.Features.Queries.VideoCache.GetCurrentVideoId;
 using SocialbookAPI.Application.Features.Queries.VideoCache.GetVideoIds;
 using SocialbookAPI.Application.Repositories;
@@ -113,6 +114,14 @@ namespace SocialbookAPI.API.Controllers
             GetCurrentVideoIdQueryRequest request = new GetCurrentVideoIdQueryRequest();
             GetCurrentVideoIdQueryResponse response = await _mediator.Send(request);
             return Ok(response);           
+        }
+
+        [HttpGet("getSongVideoVotes/{videoId}")]
+        public async Task<IActionResult> GetSongVideoVotes(string videoId)
+        {
+            GetSongVideoVotesQueryRequest request = new GetSongVideoVotesQueryRequest { VideoId = videoId };
+            GetSongVideoVotesQueryResponse response = await _mediator.Send(request);
+            return Ok(response);
         }
 
 

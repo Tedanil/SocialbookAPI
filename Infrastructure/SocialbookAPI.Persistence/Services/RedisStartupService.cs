@@ -124,7 +124,7 @@ namespace SocialbookAPI.Persistence.Services
                 using (var scope = _scopeFactory.CreateScope())
                 {
                     var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
-                    await userService.UpdateUserVoteCountsBasedOnLevels();
+                    //await userService.UpdateUserVoteCountsBasedOnLevels();
                 }
 
                 await _hubContext.Clients.All.SendAsync(ReceiveFunctionNames.VideoIdSent, videoIdAndTime.VideoId);
